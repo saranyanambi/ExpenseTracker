@@ -2,9 +2,9 @@
 import { useEffect,useState } from "react";
 // import Modal from "react-modal";
 import "./Wallet.css";
-
+import Piechart from "../PieChart/PieChart"
 const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUpdate})=>{
-
+    console.log(expense)
     // const catagories=["Food","Entertainment"];
     
     // const[Balance,setBalance]=useState(
@@ -35,6 +35,7 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
     const handleexpensexhange=(e)=>{
         const{name,value}=e.target;
         setNewexpense((prev)=>({...prev,[name]:value}));
+        console.log(name,value)
 
     }
 
@@ -68,7 +69,7 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
         let updateExpense=[...expense,expensetoAdd];
        localStorage.setItem("Expense",JSON.stringify(updateExpense));
        handleexpenseUpdate(updateExpense);
-    //    setExepense((prev)=>[...prev,newexpense])
+    
         setExpenseform(!expenseform);
         setNewexpense({
             title:"",
@@ -79,6 +80,8 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
         })
 
     }
+
+    console.log(newexpense.category);
     // useEffect(()=>{
        
     //    handleexpenseUpdate(expense)
@@ -103,6 +106,7 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
                     <h1>Wallet Balance:<span></span></h1>
                     <button onClick={()=>setExpenseform(!expenseform)} className="addexpense">+Add expense</button>
                 </div>
+                <Piechart expense={expense}/>
                 </div>
                 <div>
                     {incomeform &&
@@ -133,8 +137,8 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
                             <select
                             required
                             name="category"
-                            onChange={(e)=>handleexpensexhange(e)}>
-                                
+                            onChange={handleexpensexhange}>
+                                <option value={""}>select a Category</option>
                                     {categories.map((category,idx)=>(
                                         <option key={idx} value={category}>{category}</option>
                                     ))}

@@ -2,10 +2,18 @@ import { useState } from "react"
 import "./ExpenseTable.css"
 import { MdModeEditOutline } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
+import Pagination from "../Pagination/Pagination";
+
+
 const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
     const[edit,setEdit]=useState(false);
     const[remove,setRemove]=useState(false);
-    const[expenseChange,setExpensechange]=useState({})
+    const[expenseChange,setExpensechange]=useState({});
+    const[currpage,setCurrpage]=useState(1);
+
+    const expenseCount=3;
+    const totalPageCount=Math.ceil(expense.length/expenseCount);
+    const showedExpense=expense.slice((currpage-1)*expenseCount,currpage*expenseCount);
     const handleexpensexhange=(e)=>{
         const{name,value}=e.target;
         setExpensechange((prev)=>({...prev,[name]:value}));
@@ -40,8 +48,8 @@ const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
         <div className="expense-conatiner">
         <h2>Recent Transation</h2>
         <div  className="container">
-        {expense.length > 0 && 
-         expense.map((item, idx) => (
+        {showedExpense.length > 0 && 
+         showedExpense.map((item, idx) => (
         <div key={idx} className="expense-container">
             <div className="expense-right-container">
                 <div style={{marginRight:"1rem"}}>icon</div>
@@ -67,6 +75,7 @@ const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
         </div>
     ))
 }
+    <Pagination currpage={currpage} setCurrpage={setCurrpage} totalPageCount={totalPageCount}/>
 
 
         {edit &&

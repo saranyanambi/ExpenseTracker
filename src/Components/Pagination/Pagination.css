@@ -1,0 +1,15 @@
+.pagecount{
+    border-color: black;
+    background-color: green;
+    width: 2rem;
+    height: 1.5rem;
+    color: white;
+    margin: 0 0.5rem;
+    border-radius: 0.2rem;
+}
+
+.Pagination-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

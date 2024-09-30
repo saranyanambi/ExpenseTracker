@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 
 import Wallet from "../Wallet/Wallet";
 import ExpenseTable from "../ExpenseTable/ExpenseTable"
-
+import LineChartComponent from "../LineChart/LineChart";
 const Mainboard=()=>{
 
     const categories = [
@@ -40,8 +40,9 @@ const handleexpenseUpdate=(expense)=>{
         <Wallet categories={categories} Balance={Balance} setBalance={setBalance} expense={expense} setExepense={setExepense} handleexpenseUpdate={handleexpenseUpdate}/>
         {
             expense.length >0&&
+            <>
                 <ExpenseTable categories={categories} expense={expense} handleexpenseUpdate={handleexpenseUpdate}/>
-            
+                </>
         }
         </div>
     )
