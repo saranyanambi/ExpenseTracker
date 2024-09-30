@@ -3,18 +3,18 @@ import { useEffect,useState } from "react";
 // import Modal from "react-modal";
 import "./Wallet.css";
 
-const Wallet=()=>{
+const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUpdate})=>{
 
-    const catagories=["Food","Entertainment"];
+    // const catagories=["Food","Entertainment"];
     
-    const[Balance,setBalance]=useState(
-        localStorage.getItem("Balance")?parseInt(localStorage.getItem("Balance"),10):5000);
+    // const[Balance,setBalance]=useState(
+    //     localStorage.getItem("Balance")?parseInt(localStorage.getItem("Balance"),10):5000);
    
-        const[expense,setExepense]=useState(
-        localStorage.getItem("expenses")?.length > 0
-        ? JSON.parse(localStorage.getItem("expenses"))
-        : []
-    );
+    //     const[expense,setExepense]=useState(
+    //     localStorage.getItem("expenses")?.length > 0
+    //     ? JSON.parse(localStorage.getItem("expenses"))
+    //     : []
+    // );
 
     const[income,setincome]=useState("");
     const[newexpense,setNewexpense]=useState({
@@ -50,19 +50,25 @@ const Wallet=()=>{
 
     const addexpense=(e)=>{
         e.preventDefault();
-        const expensetoAdd={
-            id:Date.now(),
-            title:newexpense.title,
-            price:parseFloat(newexpense.price),
-            date:newexpense.date,
-            catagory:newexpense.category
+        // const expensetoAdd={
+        //     id:Date.now(),
+        //     title:newexpense.title,
+        //     price:parseFloat(newexpense.price),
+        //     date:newexpense.date,
+        //     category:newexpense.category
 
-        }
-        let latestExpense=[...expense,expensetoAdd]
-        setExepense(latestExpense);
-        localStorage.setItem("Expense",JSON.stringify(latestExpense));
-        
-       // localStorage.setItem("Expense",JSON.stringify([...expense,newexpense]));
+        // }
+        // let latestExpense=[...expense,expensetoAdd]
+        // setExepense(latestExpense);
+        // localStorage.setItem("Expense",JSON.stringify(latestExpense));
+        newexpense.id=Date.now();
+
+        let expensetoAdd={...newexpense,id:Date.now() }
+
+        let updateExpense=[...expense,expensetoAdd];
+       localStorage.setItem("Expense",JSON.stringify(updateExpense));
+       handleexpenseUpdate(updateExpense);
+    //    setExepense((prev)=>[...prev,newexpense])
         setExpenseform(!expenseform);
         setNewexpense({
             title:"",
@@ -73,8 +79,11 @@ const Wallet=()=>{
         })
 
     }
-
-
+    // useEffect(()=>{
+       
+    //    handleexpenseUpdate(expense)
+    // },[expense],handleexpenseUpdate)
+    
     useEffect(()=>{
         if(!localStorage.getItem("Balance"))
         {
@@ -95,7 +104,7 @@ const Wallet=()=>{
                     <button onClick={()=>setExpenseform(!expenseform)} className="addexpense">+Add expense</button>
                 </div>
                 </div>
-                <div className="incomeform">
+                <div>
                     {incomeform &&
                         <form onSubmit={addincome}>
                             <h2>Add New Income</h2>
@@ -114,7 +123,7 @@ const Wallet=()=>{
                 <div>
                     {expenseform &&
 
-                        <form onSubmit={addexpense} className="expense-form">
+                        <form onSubmit={addexpense} >
                             <h2>Add New Expense</h2>
                             <div>
                             <input required type="text" placeholder="Title" name="title" onChange={(e)=>handleexpensexhange(e)}/>
@@ -126,7 +135,7 @@ const Wallet=()=>{
                             name="category"
                             onChange={(e)=>handleexpensexhange(e)}>
                                 
-                                    {catagories.map((category,idx)=>(
+                                    {categories.map((category,idx)=>(
                                         <option key={idx} value={category}>{category}</option>
                                     ))}
                                     

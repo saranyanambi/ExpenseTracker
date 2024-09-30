@@ -1,0 +1,57 @@
+.expense-conatiner{
+    width:50%;
+    background-color: #3B3B3B;
+    height: 50vh;
+    padding: 1rem;
+}
+
+.container{
+    width:100%;
+    
+    background-color: white;
+    border-radius: 1rem;
+    padding: 0.2rem;
+
+}
+
+.expense-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.expense-right{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.expense-right-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.expense-left-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.deleteicon{
+    background-color: rgb(212, 52, 52);
+    border-radius: 0.5rem;
+    height: 1.5rem;
+    border-color: white;
+}
+
+.editicon{
+    background-color: rgb(231, 173, 97);
+    border-radius: 0.5rem;
+    height: 1.5rem;
+    border-color: white;
+}
+
