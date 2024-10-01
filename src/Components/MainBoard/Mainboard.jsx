@@ -1,8 +1,9 @@
 import { useState,useEffect } from "react";
-
+import "./MainBoard.css";
 import Wallet from "../Wallet/Wallet";
 import ExpenseTable from "../ExpenseTable/ExpenseTable"
-import LineChartComponent from "../LineChart/LineChart";
+import LineChart from "../LineChart/LineChart";
+// import  LineChart  from "recharts";
 const Mainboard=()=>{
 
     const categories = [
@@ -40,9 +41,11 @@ const handleexpenseUpdate=(expense)=>{
         <Wallet categories={categories} Balance={Balance} setBalance={setBalance} expense={expense} setExepense={setExepense} handleexpenseUpdate={handleexpenseUpdate}/>
         {
             expense.length >0&&
-            <>
+            <div className="expense-linechart-container">
                 <ExpenseTable categories={categories} expense={expense} handleexpenseUpdate={handleexpenseUpdate}/>
-                </>
+                
+                <LineChart data={expense}/>
+                </div>
         }
         </div>
     )

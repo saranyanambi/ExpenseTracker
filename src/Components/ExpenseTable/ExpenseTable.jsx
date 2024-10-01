@@ -3,9 +3,37 @@ import "./ExpenseTable.css"
 import { MdModeEditOutline } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
 import Pagination from "../Pagination/Pagination";
-
+import { FaPizzaSlice, FaShoppingCart, FaPlane, FaUtensils ,FaFilm,FaShoppingBasket,FaEllipsisH} from 'react-icons/fa'; // Example imports
+import Modal from "react-modal";
 
 const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
+    const categoryIcons={
+       Food:<FaPizzaSlice/>,
+        Grocery:<FaShoppingBasket/>,
+        Travel:<FaPlane/>,
+        Entertainment:<FaFilm/>,
+        Shopping:<FaShoppingCart/>,
+        Others:<FaEllipsisH/>
+    }
+
+    const modalStyle = {
+        content: {
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+          width: "80%",
+          maxWidth: "500px",
+          background: "rgba(255, 255, 255, 0.6)",
+          borderRadius: "10px",
+          border: "border: 1px solid rgba(255, 255, 255, 0.18)",
+          boxShadow: " 0 8px 12px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(10px)",
+        },
+      };
+      const [isModalOpen, setIsModalOpen] = useState(false);
     const[edit,setEdit]=useState(false);
     const[remove,setRemove]=useState(false);
     const[expenseChange,setExpensechange]=useState({});
@@ -26,6 +54,7 @@ const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
     const handleedit=(item)=>{
         setEdit(!edit)
         setExpensechange(item)
+        setIsModalOpen(true)
     }
 
     const updateexpense=(e)=>{
@@ -41,18 +70,23 @@ const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
         }
         handleexpenseUpdate(updatedExpense);
         setEdit(!edit);
+        setIsModalOpen(false)
 
     }
 
     return(
         <div className="expense-conatiner">
+         <div style={{display:"flex",justifyContent:"flex-start", color:"#FFFFFF"}}>
         <h2>Recent Transation</h2>
-        <div  className="container">
+        </div>   
+        <br/>
+        <div  className="expense-table-container">
         {showedExpense.length > 0 && 
          showedExpense.map((item, idx) => (
-        <div key={idx} className="expense-container">
+            <div>
+        <div key={idx} className="expense-row-container">
             <div className="expense-right-container">
-                <div style={{marginRight:"1rem"}}>icon</div>
+                <div className="categoryicon">{categoryIcons[item.category]}</div>
             <div className="expense-right">
             <div>{item.title}</div>
             <div>{item.date}</div>
@@ -60,26 +94,36 @@ const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
             </div>
             <div className="expense-left-container">
 
-                <div style={{marginRight:"1rem"}}>
-                    {item.price}
+                <div style={{color:"orange"}}>
+                    {`₹${item.price}`}
                 </div>
                     
                 <div>
-                <button className="deleteicon" style={{marginRight:"1rem"}} onClick={()=>handleremove(item.id)}><TiDeleteOutline style={{backgroundColor:"rgb(199, 69, 69)" }}/></button>
+                <button className="deleteicon" style={{backgroundColor:"#FF3E3E"}} onClick={()=>handleremove(item.id)}><TiDeleteOutline style={{color:"white"}}/></button>
                 
                 </div>
                 <div className="">
-                <button className="editicon" style={{marginRight:"1rem"}} onClick={()=>handleedit(item)}><MdModeEditOutline/></button>
+                <button className="editicon" style={{backgroundColor: "#F4BB4A"}} onClick={()=>handleedit(item)}><MdModeEditOutline style={{color:"white"}}/></button>
                 </div>
                 </div>
+               
         </div>
+        <hr/>
+        </div>
+        
     ))
 }
+   
     <Pagination currpage={currpage} setCurrpage={setCurrpage} totalPageCount={totalPageCount}/>
 
-
+    <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        style={modalStyle}
+        contentLabel="Edit Expense"
+      >
         {edit &&
-             <form onSubmit={updateexpense} >
+             <form onSubmit={updateexpense} className="expenseform">
              <h2>Add New Expense</h2>
              <div>
              <input required type="text" placeholder="Title" name="title" value={expenseChange.title} onChange={(e)=>handleexpensexhange(e)}/>
@@ -101,9 +145,10 @@ const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
              </div>
              <div>
              <button type="submit" className="incomebtn">Add Expense</button>
-             <button type="button" onClick={()=>setEdit(!edit)}>Cancel</button>
+             <button type="button" onClick={()=>setIsModalOpen(false)}>Cancel</button>
              </div>
          </form>   }
+         </Modal>
         </div>
         </div>
     )

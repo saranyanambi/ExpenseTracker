@@ -1,0 +1,38 @@
+.linechart-container{
+    
+    background-color: #fff;
+    width: 40%;
+    height: 50vh;
+    margin-top: 6rem;
+    border-radius: 12px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 1rem;
+}
+
+
+.recharts-cartesian-axis-tick {
+    font-size: 14px;
+    fill: #333;
+}
+
+.recharts-bar-rectangle {
+    transition: fill 250ms ease-in-out;
+}
+
+.recharts-tooltip-wrapper {
+    outline: none;
+}
+
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.recharts-default-tooltip {
+    background-color: #fff !important;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+}

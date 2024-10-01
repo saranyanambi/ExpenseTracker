@@ -1,21 +1,25 @@
 
 import { useEffect,useState } from "react";
 // import Modal from "react-modal";
+import Model from "react-modal";
 import "./Wallet.css";
 import Piechart from "../PieChart/PieChart"
 const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUpdate})=>{
     console.log(expense)
-    // const catagories=["Food","Entertainment"];
-    
-    // const[Balance,setBalance]=useState(
-    //     localStorage.getItem("Balance")?parseInt(localStorage.getItem("Balance"),10):5000);
-   
-    //     const[expense,setExepense]=useState(
-    //     localStorage.getItem("expenses")?.length > 0
-    //     ? JSON.parse(localStorage.getItem("expenses"))
-    //     : []
-    // );
+    const model={
+      content:{ 
+         top:"50%",
+        left:"40%",
+        bottom:"auto",
+        right:"auto",
+        backgroundColor:"#FFFFFFC4",
+        // maxWidth:"500px"
+        borderRadius:"1rem"
+      }
 
+
+
+    }
     const[income,setincome]=useState("");
     const[newexpense,setNewexpense]=useState({
         title:"",
@@ -51,17 +55,7 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
 
     const addexpense=(e)=>{
         e.preventDefault();
-        // const expensetoAdd={
-        //     id:Date.now(),
-        //     title:newexpense.title,
-        //     price:parseFloat(newexpense.price),
-        //     date:newexpense.date,
-        //     category:newexpense.category
-
-        // }
-        // let latestExpense=[...expense,expensetoAdd]
-        // setExepense(latestExpense);
-        // localStorage.setItem("Expense",JSON.stringify(latestExpense));
+       
         newexpense.id=Date.now();
 
         let expensetoAdd={...newexpense,id:Date.now() }
@@ -81,11 +75,6 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
 
     }
 
-    console.log(newexpense.category);
-    // useEffect(()=>{
-       
-    //    handleexpenseUpdate(expense)
-    // },[expense],handleexpenseUpdate)
     
     useEffect(()=>{
         if(!localStorage.getItem("Balance"))
@@ -96,24 +85,34 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
     },[])
 
     return(
+        <>
+        <div style={{display:"flex",justifyContent:"flex-start", color:"#FFFFFF"}}>
+        <h1>Expense Tracker</h1>
+        </div>
+        
         <div className="container">
+            
             <div className="wallet-box-container">
                 <div className="wallet-box">
-                    <h1>Wallet Balance:<span style={{color:"#9DFF5B"}}>{Balance}</span></h1>
+                    <h1 className="head">Wallet Balance:<span style={{color:"#9DFF5B"}}>{Balance}</span></h1>
                     <button onClick={()=>setIncomeform(!incomeform)} className="addincome">+Add Income</button>
                 </div>
                 <div className="wallet-box">
-                    <h1>Wallet Balance:<span></span></h1>
+                    <h1 className="head">Wallet Balance:<span>5000</span></h1>
                     <button onClick={()=>setExpenseform(!expenseform)} className="addexpense">+Add expense</button>
                 </div>
                 <Piechart expense={expense}/>
                 </div>
                 <div>
+                    <Model
+                    isOpen={incomeform}
+                     onRequestClose={() => setIncomeform(false)} 
+                     style={model}>  
                     {incomeform &&
                         <form onSubmit={addincome}>
                             <h2>Add New Income</h2>
                             <input
-                            className="income-input"
+                            className="income-input btn"
                             required
                             name="income"
                             placeholder="income amount"
@@ -123,20 +122,25 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
                             <button className="income-cancel" onClick={()=>setIncomeform(!incomeform)}>Cancel</button>
                         </form>
                     }
+                    </Model>
                 </div>
                 <div>
+                <Model isOpen={expenseform}
+                     onRequestClose={() => setExpenseform(false)} 
+                     style={model}>
                     {expenseform &&
 
                         <form onSubmit={addexpense} >
                             <h2>Add New Expense</h2>
                             <div>
-                            <input required type="text" placeholder="Title" name="title" onChange={(e)=>handleexpensexhange(e)}/>
-                            <input required type="text" placeholder="Price" name="price" onChange={(e)=>handleexpensexhange(e)}/>
+                            <input required type="text" placeholder="Title" name="title" onChange={(e)=>handleexpensexhange(e)} className="btn"/>
+                            <input required type="text" placeholder="Price" name="price" onChange={(e)=>handleexpensexhange(e)}  className="btn"/>
                             </div>
                             <div>
                             <select
                             required
                             name="category"
+                             className="btn"
                             onChange={handleexpensexhange}>
                                 <option value={""}>select a Category</option>
                                     {categories.map((category,idx)=>(
@@ -145,18 +149,20 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
                                     
                                
                             </select>
-                            <input type="date" placeholder="date" name="date" required onChange={(e)=>handleexpensexhange(e)}/>
+                            <input type="date" placeholder="date" name="date" required onChange={(e)=>handleexpensexhange(e)}  className="btn"/>
                             </div>
                             <div>
                             <button type="submit" className="incomebtn">Add Expense</button>
-                            <button type="button" onClick={()=>setExpenseform(!expenseform)}>Cancel</button>
+                            <button type="button" onClick={()=>setExpenseform(!expenseform)}  className="btn">Cancel</button>
                             </div>
                         </form>
                     }
+                    </Model>
                 </div>
 
            
         </div>
+        </>
     )
 }
 export default Wallet;

@@ -1,5 +1,6 @@
 import React from "react";
 import {PieChart ,Pie, Cell,Tooltip,Legend} from "recharts";
+import "./pieChart.css";
 
 const filterCategory=(data)=>{
     const pieChartCategory={}
@@ -42,14 +43,14 @@ const Piechart=({expense})=>{
     }
     const pieChartData=filterCategory(expense);
     return(
-    <PieChart width={400} height={400}>
+    <PieChart width={300} height={300} className="piechart-container">
         <Pie
         data={pieChartData}
         cx="50%"
         cy="50%"
         fill="#FF9304"
         dataKey="value"
-        outerRadius={150}
+        outerRadius={100}
         isAnimationActive={true}
         label={percentagelabel}
         >
@@ -58,7 +59,7 @@ const Piechart=({expense})=>{
             ))}
             </Pie>
             <Tooltip/>
-            <Legend/>
+            <Legend style={{position:"absolute", bottom:"2rem"}}/>
     </PieChart>
     )
 }
