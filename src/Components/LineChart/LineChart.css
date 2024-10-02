@@ -1,16 +1,20 @@
+.head-linechart{
+    display: flex;
+    flex-direction: column;
+}
+
 .linechart-container{
     
     background-color: #fff;
-    width: 40%;
     height: 50vh;
-    margin-top: 6rem;
+    margin-top: 1rem;
     border-radius: 12px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     padding: 1rem;
 }
 
-
+/* 
 .recharts-cartesian-axis-tick {
     font-size: 14px;
     fill: #333;
@@ -35,4 +39,4 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px;
-}
+} */

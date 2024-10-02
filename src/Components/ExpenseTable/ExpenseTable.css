@@ -1,5 +1,5 @@
 .expense-conatiner{
-    width:50%;
+    width:60%;
     background-color: #3B3B3B;
     padding: 1rem;
     position: relative;
@@ -10,10 +10,16 @@
     height: 50vh;
     background-color: white;
     border-radius: 1rem;
-    /* padding: 1rem; */
+    
 
 }
 
+.head-expense{
+    display: flex;
+    justify-content: flex-start;
+    font-style: italic;
+    color: white;
+}
 .expense-table-container{
     height: 50vh;
     background-color: white;
@@ -25,7 +31,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .expense-right{
@@ -46,14 +52,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap:0.5rem;
     
 }
 
 .deleteicon{
-    width:2rem;
-    border-radius: 0.5rem;
-    height: 2rem;
+    
+    border-radius: 0.75rem;
+   padding: 0.5rem;
     border-color: white;
+}
+
+.deleteicon img{
+    max-width: 25px;
 }
 
 .editicon{
@@ -75,21 +86,21 @@
     height: 50%;
     z-index: 10000;
 }
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:600px){
     .expense-row-container{
-        padding: 8px;
+        padding: 0.2rem;
     }
-    .expense-table-container{
-        font-size: 8px;
-    }
-    .deleteicon{
-        height:30px;
-        margin-right:5px;
-    }
-    .categoryicon{
-        margin-right:5px;
-    }
-    .editicon{
-        margin-right:0px;
+    .expense-conatiner{
+        width:100%;
     }
 }
+
+@media only screen and (max-width:350px){
+    .expense-table-container{
+        font-size: 10px;
+    }
+    .deleteicon img{
+        max-width: 15px;
+    }
+}
+

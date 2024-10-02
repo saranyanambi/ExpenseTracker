@@ -1,6 +1,6 @@
 
 
-import { BarChart, Tooltip, XAxis, YAxis ,Bar, ResponsiveContainer} from "recharts";
+import { BarChart, XAxis, YAxis ,Bar, ResponsiveContainer} from "recharts";
 import "./LineChart.css";
   
 
@@ -17,12 +17,11 @@ const filterTotal=(data)=>{
     });
 
     return Array.from(totalamount.values())
-    .sort((a,b)=>a.totalPrice-b.totalPrice)
+    .sort((a,b)=>b.totalPrice-a.totalPrice)
     .map((item)=>({name:item.category,value:item.totalPrice}))
 }
 
 const LineChart=({data})=>{
-    console.log(data)
     const linechartdata=filterTotal(data);
     return(
        
@@ -37,13 +36,12 @@ const LineChart=({data})=>{
       >
          <XAxis type="number" hide/>   
          <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} interval={0}/>
-         <Tooltip cursor={{ fill: "transparent" }}/>
          <Bar dataKey="value" fill="#8784D2"
  barSize={20} radius={[0,10,10,0]}/>
         </BarChart>
         </ResponsiveContainer>
         </div>
-       
+      
     )
 }
 

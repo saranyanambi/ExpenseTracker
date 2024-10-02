@@ -1,20 +1,27 @@
 
 import { useEffect,useState } from "react";
-// import Modal from "react-modal";
 import Model from "react-modal";
 import "./Wallet.css";
 import Piechart from "../PieChart/PieChart"
-const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUpdate})=>{
-    console.log(expense)
+const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
+   
     const model={
       content:{ 
          top:"50%",
-        left:"40%",
+        left:"50%",
         bottom:"auto",
         right:"auto",
         backgroundColor:"#FFFFFFC4",
-        // maxWidth:"500px"
-        borderRadius:"1rem"
+        borderRadius:"1rem",
+        maxWidth:"90%",
+        width:"400px",
+        borderRadius:"1rem",
+        padding:"2rem",
+        display:"flex",
+        alignitems:"center",
+        justifyContent:"center",
+        transform: "translate(-50%, -50%)",
+        margin:"1rem"
       }
 
 
@@ -36,6 +43,9 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
         setincome(e.target.value);
     }
 
+    const getExpenseAmount=(expense)=>{
+        return expense.reduce((total,expense)=>total+parseInt(expense.price,10),0)
+    }
     const handleexpensexhange=(e)=>{
         const{name,value}=e.target;
         setNewexpense((prev)=>({...prev,[name]:value}));
@@ -45,19 +55,27 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
 
     const addincome=(e)=>{
         e.preventDefault();
+        if(!isNaN(income)){
         const newBalance = Balance + parseInt(income, 10);
         setBalance(newBalance);
-        localStorage.setItem("Balance", newBalance);
+        localStorage.setItem("TotalBalance",`${newBalance}`)
+        
         setIncomeform(!incomeform);
         setincome("");
+        }
         
     }
 
     const addexpense=(e)=>{
         e.preventDefault();
-       
+       if(Balance<newexpense.price)
+       {
+        return alert("Couldn't not add to Expense because you don't have the enough balance");
+       }
         newexpense.id=Date.now();
-
+       const newamount=Balance-newexpense.price;
+       setBalance(newamount)
+       localStorage.setItem("Balance",`${newamount}`);
         let expensetoAdd={...newexpense,id:Date.now() }
 
         let updateExpense=[...expense,expensetoAdd];
@@ -77,9 +95,9 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
 
     
     useEffect(()=>{
-        if(!localStorage.getItem("Balance"))
+        if(!localStorage.getItem("TotalBalance"))
         {
-            localStorage.setItem("Balance","5000")
+            localStorage.setItem("TotalBalance","5000")
         }
       
     },[])
@@ -90,18 +108,22 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
         <h1>Expense Tracker</h1>
         </div>
         
-        <div className="container">
+        <div className="maincontainer">
             
             <div className="wallet-box-container">
                 <div className="wallet-box">
-                    <h1 className="head">Wallet Balance:<span style={{color:"#9DFF5B"}}>{Balance}</span></h1>
+                    <h2 style={{color:"white"}}>Wallet Balance:<span style={{color:"#9DFF5B"}}>{`₹${Balance}`}</span></h2>
                     <button onClick={()=>setIncomeform(!incomeform)} className="addincome">+Add Income</button>
                 </div>
                 <div className="wallet-box">
-                    <h1 className="head">Wallet Balance:<span>5000</span></h1>
+                    <h2 style={{color:"white"}}>Wallet Balance:<span style={{color:"#F4BB4A"}}>₹{getExpenseAmount(expense)}</span></h2>
                     <button onClick={()=>setExpenseform(!expenseform)} className="addexpense">+Add expense</button>
                 </div>
+                
+                </div>
                 <Piechart expense={expense}/>
+            
+                
                 </div>
                 <div>
                     <Model
@@ -118,8 +140,8 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
                             placeholder="income amount"
                             type="number"
                             onChange={(e)=>handleincomechange(e)}/>
-                            <button type="submit" className="incomebtn">Add Income</button>
-                            <button className="income-cancel" onClick={()=>setIncomeform(!incomeform)}>Cancel</button>
+                            <button type="submit" className="incomebtn btn">Add Income</button>
+                            <button className="btn" onClick={()=>setIncomeform(!incomeform)}>Cancel</button>
                         </form>
                     }
                     </Model>
@@ -132,7 +154,7 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
 
                         <form onSubmit={addexpense} >
                             <h2>Add New Expense</h2>
-                            <div>
+                            <div className="expense-btn">
                             <input required type="text" placeholder="Title" name="title" onChange={(e)=>handleexpensexhange(e)} className="btn"/>
                             <input required type="text" placeholder="Price" name="price" onChange={(e)=>handleexpensexhange(e)}  className="btn"/>
                             </div>
@@ -161,7 +183,7 @@ const Wallet=({categories,Balance,setBalance,expense,setExepense,handleexpenseUp
                 </div>
 
            
-        </div>
+      
         </>
     )
 }

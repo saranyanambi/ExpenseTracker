@@ -1,10 +1,10 @@
 import React from "react";
-import {PieChart ,Pie, Cell,Tooltip,Legend,ResponsiveContainer} from "recharts";
+import {PieChart ,Pie, Cell,Legend,ResponsiveContainer} from "recharts";
 import "./pieChart.css";
 
 const filterCategory=(data)=>{
     const pieChartCategory={}
-    console.log(data)
+    
     data.forEach(element => {
         if(pieChartCategory[element.category]){
             pieChartCategory[element.category]+=parseInt(element.price,10);
@@ -19,16 +19,8 @@ const filterCategory=(data)=>{
         value:pieChartCategory[category]
     }))
 }
-// const percentagelabel=(name,percentage)=>{
-//     return(
-//     <text fill="#fff" textAnchor="middle" dominantBaseline="middle">
-//         {`${name} ${Math.round(percentage*100)}%`}
-//     </text>
-//     )
-// }
+
 const Piechart=({expense})=>{
-    console.log(Array.isArray(expense));
-    console.log(expense)
     const color=["#FF9304","#A000FF","#FDE006"];
     const radian=Math.PI/180;
     const percentagelabel=({cx,cy,midAngle,innerRadius,outerRadius,percent,idx})=>{
@@ -43,9 +35,9 @@ const Piechart=({expense})=>{
     }
     const pieChartData=filterCategory(expense);
     return(
-        <div  className="piechart-container">
+       
         <ResponsiveContainer width="100%" height={300}>
-    <PieChart width={300} height={300}>
+    <PieChart>
         <Pie
         data={pieChartData}
         cx="50%"
@@ -55,16 +47,16 @@ const Piechart=({expense})=>{
         outerRadius={100}
         isAnimationActive={true}
         label={percentagelabel}
+        labelLine={false}
         >
             {pieChartData.map((item,idx)=>(
                 <Cell key={`cell-${item.id}`} fill={color[item.id%color.length]}/>
             ))}
             </Pie>
-            <Tooltip/>
             <Legend style={{position:"absolute", bottom:"2rem"}}/>
     </PieChart>
     </ResponsiveContainer>
-    </div>
+   
     )
 }
 

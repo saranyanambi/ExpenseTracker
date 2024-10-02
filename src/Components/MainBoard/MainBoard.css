@@ -1,9 +1,9 @@
 .total-conatiner{
-    /* width:100%; */
+   
     background-color: #3B3B3B;
     position: relative;
     padding: 1rem;
-    width: 100vw;
+    
 } 
 .expense-linechart-container{
     position: relative;
@@ -11,6 +11,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* margin-top: 4rem; */
+
     flex-direction: row;
+}
+.top-expense{
+    display: flex;
+    flex-direction: column;
+    
+    width: 40%;
+}
+
+.heading{
+    font-style: italic;
+    color: white;
+}
+
+@media only screen and (max-width:600px)
+{
+    .expense-linechart-container{
+    flex-direction: column;
+    width:100%;
+    }
+    .top-expense{
+        width: 100%;
+    }
 }
