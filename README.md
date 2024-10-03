@@ -13,21 +13,32 @@ Create a web application for tracking expenses, allowing users to add, edit, and
 
 
   1.Should have a Wallet Balance which by default is set to 5000.
+
   2.Wallet Balance can be increased.
+
   3.User should not be able to spend more than his available wallet balance. Show an alert if a user tries to do so.
+
   4.Add new expenses with details like title, amount, category, and date.
+
   5.Wallet Balance should update accordingly.
+
   6.Edit existing expenses.
+
   7.Delete expenses.
+
   8.View a summary of total expenses, categorized by date or type.
+
   9.Persist wallet balance and list of expenses in localStorage so that it should be there upon page refresh.
+
   10.Responsive design for various screen sizes.
 
 
 # Technologies Used
 
 Frontend: React.js, HTML, CSS, JavaScript.
+
 Third-Party Libraries: Recharts for charts, react-modal for modals, notistack for alerts, react-icons for icons.
+
 Styling: Plain CSS was used, avoiding the use of third-party libraries for CSS styling.
 
 # Additional Pointers
