@@ -77,6 +77,9 @@
 }
 .categoryicon{
     margin-right: 1rem;
+    background-color: rgb(212, 205, 205);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 }
 .expenseform{
     position: relative;

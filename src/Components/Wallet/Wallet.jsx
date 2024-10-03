@@ -2,9 +2,12 @@
 import { useEffect,useState } from "react";
 import Model from "react-modal";
 import "./Wallet.css";
-import Piechart from "../PieChart/PieChart"
+import Piechart from "../PieChart/PieChart";
+import {useSnackbar} from "notistack";
 const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
    
+    const { enqueueSnackbar } = useSnackbar()
+
     const model={
       content:{ 
          top:"50%",
@@ -70,7 +73,7 @@ const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
         e.preventDefault();
        if(Balance<newexpense.price)
        {
-        return alert("Couldn't not add to Expense because you don't have the enough balance");
+       return enqueueSnackbar("Couldn't not add to Expense because you don't have the enough balance",{variant:"error"});
        }
         newexpense.id=Date.now();
        const newamount=Balance-newexpense.price;
