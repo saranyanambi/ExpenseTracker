@@ -177,7 +177,7 @@ const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
                             <input type="date" placeholder="date" name="date" required onChange={(e)=>handleexpensexhange(e)}  className="btn"/>
                             </div>
                             <div>
-                            <button type="submit" className="incomebtn">Add Expense</button>
+                            <button type="submit" className="incomebtn btn">Add Expense</button>
                             <button type="button" onClick={()=>setExpenseform(!expenseform)}  className="btn">Cancel</button>
                             </div>
                         </form>
