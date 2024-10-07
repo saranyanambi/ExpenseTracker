@@ -77,7 +77,7 @@ const ExpenseTable=({categories,expense,handleexpenseUpdate})=>{
     return(
         <div className="expense-conatiner">
          <div className="head-expense"style={{display:"flex",justifyContent:"flex-start", color:"#FFFFFF"}}>
-        <h2>Recent Transation</h2>
+        <h2>RECENT Transactions</h2>
         </div>   
         <br/>
         <div  className="expense-table-container">

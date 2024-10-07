@@ -131,8 +131,8 @@ const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
                     <h2 style={{color:"white"}}>Wallet Balance:<span style={{color:"#9DFF5B"}}>{`₹${Balance}`}</span></h2>
                     <button onClick={()=>setIncomeform(!incomeform)} className="addincome">+Add Income</button>
                 </div>
-                <div className="wallet-box">
-                    <h2 style={{color:"white"}}>Wallet Balance:<span style={{color:"#F4BB4A"}}>₹{getExpenseAmount(expense)}</span></h2>
+                <div className="wallet-box wallet-box-2">
+                    <h2 style={{color:"white"}}>Expenses:<span style={{color:"#F4BB4A"}}>₹{getExpenseAmount(expense)}</span></h2>
                     <button onClick={()=>setExpenseform(!expenseform)} className="addexpense">+Add expense</button>
                 </div>
                 
