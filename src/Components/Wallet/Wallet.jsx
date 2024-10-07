@@ -61,7 +61,12 @@ const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
         if(!isNaN(income)){
         const newBalance = Balance + parseInt(income, 10);
         setBalance(newBalance);
-        localStorage.setItem("TotalBalance",`${newBalance}`)
+
+        const localbalance=parseInt(localStorage.getItem("Balance"),10)+ parseInt(income, 10);    
+
+        const localtotal=parseInt(localStorage.getItem("TotalBalance"),10)+ parseInt(income, 10);
+        localStorage.setItem("TotalBalance",`${localtotal}`)
+        localStorage.setItem("Balance",`${localbalance}`)
         
         setIncomeform(!incomeform);
         setincome("");
@@ -73,7 +78,10 @@ const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
         e.preventDefault();
        if(Balance<newexpense.price)
        {
-       return enqueueSnackbar("Couldn't not add to Expense because you don't have the enough balance",{variant:"error"});
+
+        console.log("error")
+       return  enqueueSnackbar("Couldn't not add to Expense because you don't have the enough balance",{variant:"error"});
+       
        }
         newexpense.id=Date.now();
        const newamount=Balance-newexpense.price;
@@ -102,6 +110,11 @@ const Wallet=({categories,Balance,setBalance,expense,handleexpenseUpdate})=>{
         {
             localStorage.setItem("TotalBalance","5000")
         }
+
+        if(!localStorage.getItem("Balance"))
+            {
+                localStorage.setItem("Balance","5000")
+            }
       
     },[])
 

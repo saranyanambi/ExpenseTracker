@@ -32,6 +32,7 @@ const handleexpenseUpdate=(expense)=>{
     
     setBalance(availableBalance);
 
+    localStorage.setItem("Balance",availableBalance);
     localStorage.setItem("Expense",JSON.stringify(expense));
 };
     
