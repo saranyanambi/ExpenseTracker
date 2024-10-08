@@ -32,7 +32,7 @@ const LineChart=({data})=>{
         <BarChart
         data={linechartdata}
         layout="vertical"
-        margin={{ top: 0, right: 20, left: 20, bottom:20 }}
+        margin={{ top: 0, right: 20, left: 20, bottom:80 }}
       >
          <XAxis type="number" hide/>   
          <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} interval={0}/>
