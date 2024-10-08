@@ -1,6 +1,6 @@
 # Expense Tracker
 
-live link:[Expense tracker](https://expense-tracker-sandy-pi.vercel.app/)
+
 Github link:[Github](https://github.com/saranyanambi/ExpenseTracker/)
 
 # Introduction
